@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Pedidos - Cafetería Universitaria</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Lista de Pedidos</h1>
+        <a href="/" class="btn-back">← Volver al inicio</a>
+        <table>
+            <thead>
+                <tr>
+                    <th>ID pedido</th>
+                    <th>Cliente</th>
+                    <th>Fecha</th>
+                    <th>Estado</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ped in pedidos %}
+                <tr>
+                    <td>{{ ped.id_pedido }}</td>
+                    <td>{{ ped.cliente }}</td>
+                    <td>{{ ped.fecha }}</td>
+                    <td>{{ ped.estado }}</td>
+                    <td>${{ "%.2f"|format(ped.total) }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

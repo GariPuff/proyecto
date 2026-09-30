@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Actualizar Pedido</title>
+
+</head>
+
+
+<body>
+
+    <div class="container">
+
+        <h1>Actualizar Pedido</h1>
+
+
+        <form
+            action="{{ url_for('actualizar_pedidos') }}"
+            method="POST"
+        >
+
+            <!-- =====================================
+                 ID DEL PEDIDO
+            ====================================== -->
+
+            <label for="id_pedido">
+                ID del Pedido:
+            </label>
+
+            <br>
+
+            <input
+                type="number"
+                id="id_pedido"
+                name="id_pedido"
+                value="{{ pedido.id_pedido }}"
+                readonly
+            >
+
+            <br>
+            <br>
+
+
+            <!-- =====================================
+                 CLIENTE
+            ====================================== -->
+
+            <label for="cliente">
+                Cliente:
+            </label>
+
+            <br>
+
+            <input
+                type="text"
+                id="cliente"
+                value="{{ pedido.id_cliente }}"
+                readonly
+            >
+
+            <br>
+            <br>
+
+
+            <!-- =====================================
+                 FECHA
+            ====================================== -->
+
+            <label for="fecha_pedido">
+                Nueva Fecha:
+            </label>
+
+            <br>
+
+            <input
+                type="date"
+                id="fecha_pedido"
+                name="fecha_pedido"
+                value="{{ pedido.fecha_pedido }}"
+                required
+            >
+
+            <br>
+            <br>
+
+
+            <!-- =====================================
+                 ESTADO
+            ====================================== -->
+
+            <label for="estado">
+                Nuevo Estado:
+            </label>
+
+            <br>
+
+            <select
+                id="estado"
+                name="estado"
+                required
+            >
+
+                <option
+                    value="Pendiente"
+                    {% if pedido.estado == "Pendiente" %}
+                    selected
+                    {% endif %}
+                >
+                    Pendiente
+                </option>
+
+
+                <option
+                    value="En proceso"
+                    {% if pedido.estado == "En proceso" %}
+                    selected
+                    {% endif %}
+                >
+                    En proceso
+                </option>
+
+
+                <option
+                    value="Completado"
+                    {% if pedido.estado == "Completado" %}
+                    selected
+                    {% endif %}
+                >
+                    Completado
+                </option>
+
+
+                <option
+                    value="Cancelado"
+                    {% if pedido.estado == "Cancelado" %}
+                    selected
+                    {% endif %}
+                >
+                    Cancelado
+                </option>
+
+            </select>
+
+            <br>
+            <br>
+
+
+            <!-- =====================================
+                 BOTÓN ACTUALIZAR
+            ====================================== -->
+
+            <button type="submit">
+                Actualizar Pedido
+            </button>
+
+        </form>
+
+
+        <br>
+
+
+        <a href="{{ url_for('pedidos') }}">
+            Volver a la lista de pedidos
+        </a>
+
+    </div>
+
+</body>
+
+</html>

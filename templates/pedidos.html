@@ -1,87 +1,252 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
+
     <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
     <title>Pedidos - Cafetería</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
+
     <script>
-        // Función para redirigir según el botón presionado afuera
+
         function enviarAccion(accion) {
-            const seleccionado = document.querySelector('input[name="id_pedido_sel"]:checked');
-            
-            if (accion === 'agregar') {
-                window.location.href = '/agregar_pedido';
+
+            const seleccionado =
+                document.querySelector(
+                    'input[name="id_pedido_sel"]:checked'
+                );
+
+
+            // =====================================
+            // AGREGAR
+            // =====================================
+
+            if (accion === "agregar") {
+
+                window.location.href =
+                    "/agregar_pedido";
+
                 return;
             }
 
+
+            // =====================================
+            // COMPROBAR SELECCIÓN
+            // =====================================
+
             if (!seleccionado) {
-                alert('Por favor, selecciona un pedido de la lista para ' + accion + '.');
+
+                alert(
+                    "Por favor, selecciona un pedido."
+                );
+
                 return;
             }
+
 
             const id = seleccionado.value;
 
-            if (accion === 'actualizar') {
-                window.location.href = '/actualizar_pedido/' + id;
-            } else if (accion === 'borrar') {
-                if (confirm('¿Seguro que deseas borrar el pedido ID ' + id + '?')) {
-                    const form = document.getElementById('form-pedidos');
-                    form.action = '/borrar_pedido/' + id;
-                    form.method = 'POST';
+
+            // =====================================
+            // ACTUALIZAR
+            // =====================================
+
+            if (accion === "actualizar") {
+
+                window.location.href =
+                    "/actualizar_pedido/" + id;
+
+                return;
+            }
+
+
+            // =====================================
+            // BORRAR
+            // =====================================
+
+            if (accion === "borrar") {
+
+                if (
+                    confirm(
+                        "¿Seguro que deseas borrar el pedido ID " +
+                        id +
+                        "?"
+                    )
+                ) {
+
+                    const form =
+                        document.getElementById(
+                            "form-pedidos"
+                        );
+
+                    form.action =
+                        "/borrar_pedido/" + id;
+
+                    form.method = "POST";
+
                     form.submit();
                 }
+
             }
+
         }
+
     </script>
+
 </head>
+
+
 <body>
+
     <div class="container">
+
         <h1>Lista de Pedidos</h1>
-        <a href="/" class="btn-back">← Volver al Inicio</a>
-        <br><br>
+
+
+        <a href="/" class="btn-back">
+            ← Volver al Inicio
+        </a>
+
+        <br>
+        <br>
+
 
         <form id="form-pedidos">
+
             <table>
+
                 <thead>
+
                     <tr>
-                        <th>Sel.</th> <!-- Columna para elegir la fila -->
+
+                        <th>Sel.</th>
+
                         <th>ID pedido</th>
+
                         <th>Cliente</th>
+
                         <th>Fecha</th>
+
                         <th>Estado</th>
+
                         <th>Total</th>
+
                     </tr>
+
                 </thead>
+
+
                 <tbody>
-                    {% for p in pedidos %}
-                    <tr>
-                        <td>
-                            <input type="radio" name="id_pedido_sel" value="{{ p.ID_Pedido }}">
-                        </td>
-                        <td>{{ p.id_pedido }}</td>
-                        <td>{{ p.cliente }}</td>
-                        <td>{{ p.fecha_pedido }}</td>
-                        <td>{{ p.estado }}</td>
-                        <td>${{ "%.2f"|format(p.total) }}</td>
-                    </tr>
+
+                    {% if pedidos %}
+
+                        {% for p in pedidos %}
+
+                        <tr>
+
+                            <td>
+
+                                <input
+                                    type="radio"
+                                    name="id_pedido_sel"
+                                    value="{{ p.id_pedido }}"
+                                >
+
+                            </td>
+
+
+                            <td>
+                                {{ p.id_pedido }}
+                            </td>
+
+
+                            <td>
+                                {{ p.cliente }}
+                            </td>
+
+
+                            <td>
+                                {{ p.fecha }}
+                            </td>
+
+
+                            <td>
+                                {{ p.estado }}
+                            </td>
+
+
+                            <td>
+                                ${{ "%.2f"|format(p.total) }}
+                            </td>
+
+                        </tr>
+
+                        {% endfor %}
+
                     {% else %}
-                    <tr>
-                        <td colspan="6">No hay pedidos registrados.</td>
-                    </tr>
-                    {% endfor %}
+
+                        <tr>
+
+                            <td colspan="6">
+                                No hay pedidos registrados.
+                            </td>
+
+                        </tr>
+
+                    {% endif %}
+
                 </tbody>
+
             </table>
+
         </form>
+
 
         <br>
 
-        
+
+        <!-- =====================================
+             BOTONES
+        ====================================== -->
+
         <div class="btn-group">
-            <button type="button" class="btn" onclick="enviarAccion('agregar')">Agregar</button>
-            <button type="button" class="btn" onclick="enviarAccion('actualizar')">Actualizar</button>
-            <button type="button" class="btn" onclick="enviarAccion('borrar')">Borrar</button>
+
+            <button
+                type="button"
+                class="btn"
+                onclick="enviarAccion('agregar')"
+            >
+                Agregar
+            </button>
+
+
+            <button
+                type="button"
+                class="btn"
+                onclick="enviarAccion('actualizar')"
+            >
+                Actualizar
+            </button>
+
+
+            <button
+                type="button"
+                class="btn"
+                onclick="enviarAccion('borrar')"
+            >
+                Borrar
+            </button>
+
         </div>
 
     </div>
+
 </body>
+
 </html>

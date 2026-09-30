@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0">
+
+    <title>Actualizar Producto</title>
+
+</head>
+
+
+<body>
+
+    <div class="container">
+
+        <h1>Actualizar Producto</h1>
+
+
+        <form
+            action="{{ url_for('actualizar_productos') }}"
+            method="POST"
+        >
+
+            <!-- ID DEL PRODUCTO -->
+
+            <label for="id_producto">
+                ID del Producto:
+            </label>
+
+            <br>
+
+            <input
+                type="number"
+                id="id_producto"
+                name="id_producto"
+                value="{{ producto.id_producto }}"
+                readonly
+            >
+
+            <br>
+            <br>
+
+
+            <!-- NOMBRE -->
+
+            <label for="nombre">
+                Nombre:
+            </label>
+
+            <br>
+
+            <input
+                type="text"
+                id="nombre"
+                name="nombre"
+                value="{{ producto.nombre }}"
+                required
+            >
+
+            <br>
+            <br>
+
+
+            <!-- CATEGORÍA -->
+
+            <label for="categoria">
+                Categoría:
+            </label>
+
+            <br>
+
+            <input
+                type="text"
+                id="categoria"
+                name="categoria"
+                value="{{ producto.categoria }}"
+                required
+            >
+
+            <br>
+            <br>
+
+
+            <!-- PRECIO -->
+
+            <label for="precio">
+                Precio:
+            </label>
+
+            <br>
+
+            <input
+                type="number"
+                id="precio"
+                name="precio"
+                value="{{ producto.precio }}"
+                step="0.01"
+                min="0"
+                required
+            >
+
+            <br>
+            <br>
+
+
+            <!-- STOCK -->
+
+            <label for="stock">
+                Stock:
+            </label>
+
+            <br>
+
+            <input
+                type="number"
+                id="stock"
+                name="stock"
+                value="{{ producto.stock }}"
+                min="0"
+                required
+            >
+
+            <br>
+            <br>
+
+
+            <button type="submit">
+                Actualizar Producto
+            </button>
+
+        </form>
+
+
+        <br>
+
+
+        <a href="{{ url_for('productos') }}">
+            Volver a la lista de productos
+        </a>
+
+    </div>
+
+</body>
+
+</html>
